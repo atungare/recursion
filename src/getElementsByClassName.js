@@ -10,19 +10,19 @@ var getElementsByClassName = function (className) {
 
 var recursiveGEBCN = function(className, node) {
 	var result = [];
-	var myClassList = node.classList;
-	var myChildNodes = node.childNodes;
-
-	for (elem in myClassList) {
-		if (elem.indexOf(className) > -1) {
-			result.push(elem);
+	
+	var myClassList = node.classList || [];
+	for (var i = 0; i < myClassList.length; i++) {
+		if (myClassList[i].indexOf(className) > -1) {
+			result.push(node);
 		}
 	}
 
-	for (child in myChildNodes) {
-		var childRes = recursiveGEBCN(className, child);
+	var myChildNodes = node.childNodes || [];
+	for (var j = 0; j < myChildNodes.length; j++) {
+		var childRes = recursiveGEBCN(className, myChildNodes[j]);
 		for (item in childRes) {
-			result.push(item);
+			result.push(childRes[item]);
 		}
 	}
 
